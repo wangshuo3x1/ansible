@@ -1,0 +1,7 @@
+[[inputs.logparser]]
+  files = ["/var/log/apache/access_log.log"]
+  from_beginning = false
+
+  [inputs.logparser.grok]
+    patterns = ['%{COMMON_LOG_FORMAT} (?:%{NUMBER:resp_time:float}|-) %{QS:referrer} %{QS:agent}']
+    measurement = "access_log"
