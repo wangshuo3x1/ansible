@@ -1,0 +1,30 @@
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /var/log/logstash/*.log
+  fields:
+    service: logstash
+- input_type: log
+  paths:
+    -  /var/log/elasticsearch/*.log
+  fields:
+    service: elasticsearch
+  multiline.pattern: ^\[
+  multiline.negate: true
+  multiline.match: after
+
+# name:
+tags: ["logstash", "elasticsearch"]
+fields:
+  env: staging
+
+# output.elasticsearch:
+  # hosts: ["elasticsearch:9200"]
+  # username: ""
+  # password: ""
+
+output.logstash:
+  hosts: ["logstash:5044"]
+
+logging.level: debug
+logging.selectors: ["*"]
